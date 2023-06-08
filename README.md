@@ -1,5 +1,10 @@
 # capstone-project
 
+
+## Team Member
+Ilham Dirgantara LP
+
+
 ## Running the Web Application Locally
 
 To run this web application on your local computer, follow the steps below:
