@@ -2,7 +2,12 @@
 
 
 ## Team Member
-Ilham Dirgantara LP
+Cloud Computing Path:
+Ilham Dirgantara L.P.
+Machine Learning Path:
+Ronaldyanto
+Zeindea Amanda
+Stela Marisa
 
 
 ## Running the Web Application Locally
