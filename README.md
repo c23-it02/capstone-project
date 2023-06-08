@@ -23,7 +23,6 @@ To run this web application on your local computer, follow the steps below:
   git clone -b web-local https://github.com/c23-it02/capstone-project.git
   ```
 3. Navigate to the 'capstone-project' directory.
--
 ```
 cd capstone-project
 ```
@@ -51,6 +50,9 @@ py -m venv venv
 pip install -r requirements.txt
 ```
 7. Navigate to the 'mywebsite' directory.
+```
+cd mywebsite
+```
 
 8. Start the server by running the following command:
 ```
