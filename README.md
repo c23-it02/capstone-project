@@ -15,7 +15,7 @@ To run this web application on your local computer, follow the steps below:
 4. Install the virtual environment by running the following command:
 ```
 py -m pip install virtualenv
-py -m venv env
+py -m venv venv
 ```
 5. Activate the virtual environment:
 
