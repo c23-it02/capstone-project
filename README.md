@@ -8,6 +8,9 @@ To run this web application on your local computer, follow the steps below:
 
 2. Switch to the 'web-local' branch and clone it to your local directory:
 
+```
+git clone -b web-local <repository_url>
+```
 
 3. Navigate to the 'capstone-project' directory.
 
