@@ -38,6 +38,9 @@ pip install -r requirements.txt
 7. Navigate to the 'mywebsite' directory.
 
 8. Start the server by running the following command:
+```
+python manage.py runserver
+```
 
 
 
