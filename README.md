@@ -1,6 +1,3 @@
-# capstone-project
-
-
 ## Team Member
 
 **Cloud Computing Path:**
