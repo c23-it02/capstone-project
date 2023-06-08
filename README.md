@@ -30,12 +30,12 @@ python -m venv venv
   source venv/bin/activate
   ```
 
-6. Install the dependencies listed in the 'requirements.txt' file:
+6. Navigate to the 'mywebsite' directory.
+
+7. Install the dependencies listed in the 'requirements.txt' file:
 ```
 pip install -r requirements.txt
 ```
-
-7. Navigate to the 'mywebsite' directory.
 
 8. Start the server by running the following command:
 ```
