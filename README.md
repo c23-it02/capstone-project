@@ -12,9 +12,10 @@ To run this web application on your local computer, follow the steps below:
   ```
 3. Navigate to the 'capstone-project' directory.
 
-4. Install the virtual environment by running the following command: ```python -m venv venv ```
-
-
+4. Install the virtual environment by running the following command:
+```
+python -m venv venv 
+```
 5. Activate the virtual environment:
 
 - For Windows:
@@ -30,8 +31,9 @@ To run this web application on your local computer, follow the steps below:
   ```
 
 6. Install the dependencies listed in the 'requirements.txt' file:
-
-
+```
+pip install -r requirements.txt
+```
 
 7. Navigate to the 'mywebsite' directory.
 
