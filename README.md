@@ -14,7 +14,8 @@ To run this web application on your local computer, follow the steps below:
 
 4. Install the virtual environment by running the following command:
 ```
-python -m venv venv 
+py -m pip install virtualenv
+py -m venv env
 ```
 5. Activate the virtual environment:
 
@@ -38,7 +39,7 @@ pip install -r requirements.txt
 
 8. Start the server by running the following command:
 ```
-python manage.py runserver
+py manage.py runserver
 ```
 
 
