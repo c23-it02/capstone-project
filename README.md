@@ -23,7 +23,10 @@ To run this web application on your local computer, follow the steps below:
   git clone -b web-local https://github.com/c23-it02/capstone-project.git
   ```
 3. Navigate to the 'capstone-project' directory.
-
+-
+```
+cd capstone-project
+```
 4. Install the virtual environment by running the following command:
 ```
 py -m pip install virtualenv
