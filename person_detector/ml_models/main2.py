@@ -156,7 +156,7 @@ def open_camera():
 
     camera = IpCamera.objects.latest()
     address = camera.ip_camera
-    vid = cv2.VideoCapture(0)
+    vid = cv2.VideoCapture(address)
 
     while(True):
         ret, frame = vid.read()

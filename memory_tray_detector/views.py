@@ -12,8 +12,26 @@ from .ml_models.camera import send_message_to_mqtt
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import Group, User
+from tensorflow.keras.models import load_model
+from tensorflow.keras.utils import load_img, img_to_array
+import numpy as np 
 
 import os
+
+def buat_model(path_model):
+    return load_model(path_model)
+
+def predict(tes_path, model):
+    img = load_img(tes_path, target_size=(600, 600))
+    x = img_to_array(img)
+    x /= 255
+    x = np.expand_dims(x, axis=0)
+    images = np.vstack([x])
+    yhat = model.predict(images)
+    yhat = np.argmax(yhat, axis=1)[0]
+    return yhat
+
+
 
 
 # Counting SSD tray
@@ -39,7 +57,7 @@ def tray_ssd(request, forms):
     formatted_time = current_time.strftime('%d%m%Y')
     message = {
         'name': str(name),
-        'quantity': str(quantity),
+        'remaining-quantity': str(quantity),
         'type': type_tray,
         'timestamp': formatted_time
     }
@@ -55,7 +73,19 @@ def tray_hdd(request, forms):
     name = forms.cleaned_data.get('name')
     picture = request.FILES['picture']
     current_time = timezone.now()
-    quantity = 1
+
+    # Menyimpan file gambar ke Cloud Storage
+    picture_path = settings.GS_BUCKET_NAME
+    with open(picture_path, 'wb') as f:
+        for chunk in picture.chunks():
+            f.write(chunk)
+
+    # Menghitung prediksi menggunakan model
+    path_model = os.path.join(settings.BASE_DIR, 'memory_tray_detector', 'ml_models', 'model_HDD.h5')
+    model = buat_model(path_model)
+    result = predict(picture_path, model)
+
+    quantity = result
     type_tray = 'HDD'
             
     # Menyimpan data ke dalam model Gallery
@@ -72,7 +102,7 @@ def tray_hdd(request, forms):
     formatted_time = current_time.strftime('%d%m%Y')
     message = {
         'name': str(name),
-        'quantity': str(quantity),
+        'remaining-quantity': str(quantity),
         'type': type_tray,
         'timestamp': formatted_time
     }

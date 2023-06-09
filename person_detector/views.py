@@ -12,6 +12,7 @@ from .resource import DetectedFaceResource
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required, permission_required, user_passes_test
 from django.contrib.auth.models import Group, User
+from django.core.files.storage import default_storage
 
 import os
 
@@ -145,7 +146,7 @@ def update(request, update_id):
         # name = request.POST.get('name')
         if len(request.FILES) != 0:
             if len(form.picture) > 0:
-                os.remove(form.picture.path)
+                default_storage.delete(form.picture.name)
             picture = request.FILES['picture']
             form.picture = picture
 

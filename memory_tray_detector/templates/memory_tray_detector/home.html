@@ -62,7 +62,7 @@
 
     <!-- alert -->
     <div class="alert alert-primary" role="alert">
-      You can predict the tray's memory quantity by uploading a photo via the <strong>POST</strong> button or capturing it directly using the <strong>Open Camera</strong> button below.
+      You can predict the tray's memory remaining quantity by uploading a photo via the <strong>POST</strong> button or capturing it directly using the <strong>Open Camera</strong> button below.
     </div>
 
     <!-- Submit Picture -->
@@ -132,7 +132,7 @@
                     {% endif %}
                   {% endfor %}
                 </p>
-                <p class="card-text"><strong>Quantity:</strong>
+                <p class="card-text"><strong>Remaining Quantity:</strong>
                   {% for latest_gallery in latest_galleries %}
                     {% if latest_gallery.name.id == card.name.id %}
                       {{latest_gallery.quantity}}                          

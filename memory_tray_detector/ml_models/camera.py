@@ -138,7 +138,7 @@ def open_camera(cam_id):
                 formatted_time = current_time.strftime('%d%m%Y')
                 message = {
                         'name': camera.name,
-                        'quantity': str(quantity),
+                        'remaining-quantity': str(quantity),
                         'type': type_tray,
                         'timestamp': formatted_time
                     }

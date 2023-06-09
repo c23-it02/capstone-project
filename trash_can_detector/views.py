@@ -51,8 +51,7 @@ def home(request):
             name = forms.cleaned_data.get('name')
             picture = request.FILES['picture']
             current_time = timezone.now()
-            # Menyimpan file gambar ke sistem file
-            # picture_path = os.path.join(settings.MEDIA_ROOT, picture.name)
+
             # Menyimpan file gambar ke Cloud Storage
             picture_path = settings.GS_BUCKET_NAME
             with open(picture_path, 'wb') as f:
