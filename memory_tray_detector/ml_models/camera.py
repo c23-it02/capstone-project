@@ -11,6 +11,9 @@ import socket
 from django.contrib import messages
 from django.shortcuts import redirect
 from django.utils import timezone
+from tensorflow.keras.models import load_model
+from tensorflow.keras.utils import load_img, img_to_array
+import numpy as np 
 
 from django.conf import settings
 from memory_tray_detector.models import Gallery, Camera, CamCard
@@ -75,6 +78,20 @@ def send_message_to_mqtt(pesan):
 # Akhir Konfigurasi
 
 
+# Count remaining-quantity mtray ssd
+def buat_model(path_model):
+    return load_model(path_model)
+
+def predict_ssd(tes_path, model):
+    img = load_img(tes_path, target_size=(300, 300))
+    x = img_to_array(img)
+    x /= 255
+    x = np.expand_dims(x, axis=0)
+    images = np.vstack([x])
+    yhat = model.predict(images)
+    yhat = np.argmax(yhat, axis=1)[0]
+    return yhat
+
 def open_camera(cam_id):
         # Mengambil instance camera sesuai Camera ID
         camera = get_object_or_404(Camera, id=cam_id)
@@ -122,8 +139,13 @@ def open_camera(cam_id):
                 content_file = io.BytesIO(picture)
                 gcs.save(file_path, content_file)
 
+                # Menghitung remaining capacity ssd
+                path_model = os.path.join(settings.BASE_DIR, 'memory_tray_detector', 'ml_models', 'model_SSD.h5')
+                model = buat_model(path_model)
+                result = predict_ssd(content_file, model)
+
                 # Simpan photo ke models Gallery
-                quantity = 1
+                quantity = result
                 type_tray = 'SSD'
 
                 current_time = timezone.now()

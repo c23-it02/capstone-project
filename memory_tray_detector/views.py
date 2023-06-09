@@ -31,6 +31,17 @@ def predict(tes_path, model):
     yhat = np.argmax(yhat, axis=1)[0]
     return yhat
 
+def predict_ssd(tes_path, model):
+    img = load_img(tes_path, target_size=(300, 300))
+    x = img_to_array(img)
+    x /= 255
+    x = np.expand_dims(x, axis=0)
+    images = np.vstack([x])
+    yhat = model.predict(images)
+    yhat = np.argmax(yhat, axis=1)[0]
+    return yhat
+
+
 
 
 
@@ -40,7 +51,19 @@ def tray_ssd(request, forms):
     name = forms.cleaned_data.get('name')
     picture = request.FILES['picture']
     current_time = timezone.now()
-    quantity = 1
+
+    # Menyimpan file gambar ke Cloud Storage
+    picture_path = settings.GS_BUCKET_NAME
+    with open(picture_path, 'wb') as f:
+        for chunk in picture.chunks():
+            f.write(chunk)
+
+    # Menghitung prediksi menggunakan model
+    path_model = os.path.join(settings.BASE_DIR, 'memory_tray_detector', 'ml_models', 'model_SSD.h5')
+    model = buat_model(path_model)
+    result = predict_ssd(picture_path, model)
+
+    quantity = result
     type_tray = 'SSD'
             
     # Menyimpan data ke dalam model Gallery
