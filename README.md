@@ -51,9 +51,9 @@ pip install -r requirements.txt
 ```
 7. Karena ukuran model memory tray yang sangat besar (+-200mb), maka tidak disimpan di GitHub, untuk mendownloadnya bisa melalui link berikut:
 ```
-google-drive
+https://drive.google.com/file/d/17iXiilrIyDivtYKWhlJne2K2k0l-Bj0_/view?usp=sharing
 ```
-8. Simpan models tersebut ke direktori capstone-project/memory_tray_detector/ml_models/
+8. Simpan file model_HDD.h5 tersebut ke direktori capstone-project/memory_tray_detector/ml_models/
 
 8. Start the server by running the following command:
 ```
