@@ -58,7 +58,7 @@ model_SSD.h5:
 ```
 https://drive.google.com/file/d/1CZO73P0nI_-9aLtcGtqmgoNvgV2HF4nH/view?usp=drive_link
 ```
-8. Save the model_HDD.h5 file to the directory capstone-project/memory_tray_detector/ml_models/.
+8. Save the model_HDD.h5 and model_SSD.h5 file to the directory capstone-project/memory_tray_detector/ml_models/.
 
 9. Make sure that the command prompt (CMD) is in the capstone-project directory.
 
