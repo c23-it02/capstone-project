@@ -50,12 +50,19 @@ py -m venv venv
 pip install -r requirements.txt
 ```
 7. Karena ukuran model memory tray yang sangat besar (+-200mb), maka tidak disimpan di GitHub, untuk mendownloadnya bisa melalui link berikut:
+model_HDD.h5:
 ```
 https://drive.google.com/file/d/17iXiilrIyDivtYKWhlJne2K2k0l-Bj0_/view?usp=sharing
 ```
+model_SSD.h5:
+```
+https://drive.google.com/file/d/1CZO73P0nI_-9aLtcGtqmgoNvgV2HF4nH/view?usp=drive_link
+```
 8. Simpan file model_HDD.h5 tersebut ke direktori capstone-project/memory_tray_detector/ml_models/
 
-8. Start the server by running the following command:
+9. Pastikan cmd berada di direktori capstone-project
+
+9. Start the server by running the following command:
 ```
 py manage.py runserver
 ```
