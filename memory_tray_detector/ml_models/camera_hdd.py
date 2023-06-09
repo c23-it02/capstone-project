@@ -10,6 +10,9 @@ import socket
 from django.contrib import messages
 from django.shortcuts import redirect
 from django.utils import timezone
+from tensorflow.keras.models import load_model
+from tensorflow.keras.utils import load_img, img_to_array
+import numpy as np 
 
 from django.conf import settings
 from memory_tray_detector.models import Gallery, Camera, CamCard
@@ -71,6 +74,20 @@ def send_message_to_mqtt(pesan):
         disconnect_mqtt(client)
 # Akhir Konfigurasi
 
+# Count remaining-quantity mtray
+def buat_model(path_model):
+    return load_model(path_model)
+
+def predict(tes_path, model):
+    img = load_img(tes_path, target_size=(600, 600))
+    x = img_to_array(img)
+    x /= 255
+    x = np.expand_dims(x, axis=0)
+    images = np.vstack([x])
+    yhat = model.predict(images)
+    yhat = np.argmax(yhat, axis=1)[0]
+    return yhat
+
 
 def open_camera(save_folder, cam_id):
     # try:
@@ -79,11 +96,6 @@ def open_camera(save_folder, cam_id):
         address = camera.ip_camera
         cam = cv2.VideoCapture(0)
         # cam.open(address)
-
-        # connected = cam.open(address)
-
-        # if not connected:
-        #     raise socket.error('Tidak dapat terhubung dengan alamat Ip Camera')
 
         # Cek apakah file counter sudah ada
         counter_file = os.path.join(settings.BASE_DIR, 'memory_tray_detector', 'ml_models', 'counter.pkl')
@@ -123,8 +135,15 @@ def open_camera(save_folder, cam_id):
                 photo_path = os.path.join(save_folder, photo_name)
                 cv2.imwrite(photo_path, frame)
 
+                picture = os.path.join(settings.MEDIA_ROOT, 'memory_tray_detector', photo_name)
+
+                # Menghitung remaining capacity hdd
+                path_model = os.path.join(settings.BASE_DIR, 'memory_tray_detector', 'ml_models', 'model_HDD.h5')
+                model = buat_model(path_model)
+                result = predict(picture, model)
+
                 # Simpan photo ke models Gallery
-                quantity = 1
+                quantity = result
                 type_tray = 'HDD'
                 picture = os.path.join('memory_tray_detector', photo_name)
                 current_time = datetime.now()
@@ -139,7 +158,7 @@ def open_camera(save_folder, cam_id):
                 formatted_time = current_time.strftime('%d%m%Y%H%M%S')
                 message = {
                         'name': camera.name,
-                        'quantity': str(quantity),
+                        'remaining-quantity': str(quantity),
                         'type': type_tray,
                         'timestamp': formatted_time
                     }
